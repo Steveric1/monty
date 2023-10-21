@@ -2,9 +2,8 @@
 #define _MONTY_H_
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+#include <stdlib.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -23,6 +22,15 @@ typedef struct stack_s
 } stack_t;
 
 /**
+ * struct stream - A structure to represent a stream with a FILE pointer.
+ * @file: A pointer to a FILE object associated with the stream.
+ */
+typedef struct stream
+{
+	FILE *file;
+} stream_t;
+extern stream_t bus;
+/**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
@@ -36,9 +44,10 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void processMonty(FILE *file);
+void processMonty(stream_t file);
 void pushFunc(stack_t **stack, unsigned int line_number);
 void pallFunc(stack_t **stack, unsigned int line_number);
+void add_node(stack_t **stack, int data);
 void freeStack(stack_t **stack);
-
-#endif /*_MONNTY_H_*/
+void processInstruction(char *line, unsigned int line_number, stack_t **stack);
+#endif /*_MONTY_H_*/
