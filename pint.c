@@ -11,14 +11,13 @@
  */
 void pintFunc(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current;
-
-	current = *stack;
-	if (current == NULL)
+	if (stack == NULL && *stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		fclose(bus.file);
+		freeStack(stack);
 		exit(EXIT_FAILURE);
 	}
 
-	printf("%d\n", current->n);
+	printf("%d\n", (*stack)->n);
 }
