@@ -9,15 +9,18 @@ void popFunc(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
-	if (*stack == NULL)
+	temp = *stack;
+	if (temp == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		fclose(bus.file);
-		freeStack(stack);
 		exit(EXIT_FAILURE);
 	}
-	temp = *stack;
-	*stack = temp->next;
-	free(temp);
-}
 
+	*stack = (*stack)->next;
+	free(temp);
+	temp = NULL;
+
+	if (*stack != NULL)
+		(*stack)->prev = NULL;
+}
